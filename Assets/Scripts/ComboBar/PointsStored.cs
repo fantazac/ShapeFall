@@ -6,9 +6,8 @@ public class PointsStored : MonoBehaviour
     [SerializeField]
     private int _orbsToCatchBeforePowerUp = 10;
 
-    private int _orbsInComboBar = 0;
-
     public int OrbsToCatchBeforePowerUp { get { return _orbsToCatchBeforePowerUp; } }
+    public int OrbsInComboBar { get; private set; }
 
     public delegate void OnComboBarFullHandler();
     public event OnComboBarFullHandler OnComboBarFull;
@@ -20,13 +19,11 @@ public class PointsStored : MonoBehaviour
 
     private void AddOrb()
     {
-        _orbsInComboBar++;
+        OrbsInComboBar++;
 
-        if(_orbsInComboBar == _orbsToCatchBeforePowerUp)
+        if(OrbsInComboBar % _orbsToCatchBeforePowerUp == 0)
         {
             OnComboBarFull();
-            _orbsInComboBar = 0;
         }
     }
-
 }

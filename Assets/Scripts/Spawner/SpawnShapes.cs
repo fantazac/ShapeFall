@@ -44,7 +44,7 @@ public class SpawnShapes : MonoBehaviour
         {
             CreateShape();
 
-            yield return null;
+            yield return _delaySpawn;
         }
     }
 
