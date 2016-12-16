@@ -63,14 +63,18 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Scripts\CatchBar\CatchShape.cs" />
-    <Compile Include="Assets\Scripts\CatchBar\CreateOrb.cs" />
-    <Compile Include="Assets\Scripts\ComboBar\CatchOrb.cs" />
-    <Compile Include="Assets\Scripts\ComboBar\PointsStored.cs" />
-    <Compile Include="Assets\Scripts\ComboBar\ResizeComboBar.cs" />
-    <Compile Include="Assets\Scripts\Orbs\MoveOrb.cs" />
-    <Compile Include="Assets\Scripts\Shapes\MoveSquare.cs" />
-    <Compile Include="Assets\Scripts\Spawner\SpawnShapes.cs" />
+    <Compile Include="Assets\Scripts\Inputs\CatchBarInputManager.cs" />
+    <Compile Include="Assets\Scripts\Objects\CatchBar\CatchShape.cs" />
+    <Compile Include="Assets\Scripts\Objects\CatchBar\ChangeColor.cs" />
+    <Compile Include="Assets\Scripts\Objects\CatchBar\CreateOrb.cs" />
+    <Compile Include="Assets\Scripts\Objects\ComboBar\CatchOrb.cs" />
+    <Compile Include="Assets\Scripts\Objects\ComboBar\PointsStored.cs" />
+    <Compile Include="Assets\Scripts\Objects\ComboBar\ResizeComboBar.cs" />
+    <Compile Include="Assets\Scripts\Objects\Orbs\MoveOrb.cs" />
+    <Compile Include="Assets\Scripts\Objects\ShapeColors.cs" />
+    <Compile Include="Assets\Scripts\Objects\Shapes\MoveSquare.cs" />
+    <Compile Include="Assets\Scripts\Objects\Spawner\SpawnShapes.cs" />
+    <Compile Include="Assets\Scripts\UI\ShowCombo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\SyntaxTree\UnityVS\2015\UnityVS.CSharp.targets" />
 </Project>

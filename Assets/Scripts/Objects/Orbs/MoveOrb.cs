@@ -4,7 +4,7 @@ using System.Collections;
 public class MoveOrb : MonoBehaviour
 {
     [SerializeField]
-    private float _timeInAir = 1.5f;
+    private float _timeInAir = 1;
 
     [SerializeField]
     private float _distanceBelowCatchBar = 4;

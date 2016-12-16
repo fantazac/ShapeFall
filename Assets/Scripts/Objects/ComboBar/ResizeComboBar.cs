@@ -4,10 +4,10 @@ using System.Collections;
 public class ResizeComboBar : MonoBehaviour
 {
     [SerializeField]
-    private float _increaseSpeed = 6;
+    private float _increaseSpeed = 8;
 
     [SerializeField]
-    private float _decreaseSpeed = -25;
+    private float _decreaseSpeed = -20;
 
     private PointsStored _pointsStored;
 
@@ -23,6 +23,7 @@ public class ResizeComboBar : MonoBehaviour
         GetComponentInParent<CatchOrb>().OnOrbCaught += ResizeBar;
         _pointsStored = GetComponent<PointsStored>();
         _pointsStored.OnComboBarFull += ResetBar;
+        _pointsStored.OnEmptyBar += ResetBarFail;
 
         _sizeIncreaseOnCatch = 1f / _pointsStored.OrbsToCatchBeforePowerUp;
         _initialLocalScale = transform.localScale;
@@ -52,20 +53,7 @@ public class ResizeComboBar : MonoBehaviour
 
         if (_resetBar)
         {
-            _resetBar = false;
-            while (transform.localScale.y > _initialLocalScale.y)
-            {
-                ChangeBarSize(_decreaseSpeed);
-
-                yield return null;
-            }
-            _canResize = true;
-            transform.localScale = _initialLocalScale;
-            transform.position = _initialPosition;
-            if((_pointsStored.OrbsInComboBar % _pointsStored.OrbsToCatchBeforePowerUp) > 0)
-            {
-                StartCoroutine(ResizeAfterReset());
-            }
+            StartCoroutine(ResetBarSize());
         }
         else
         {
@@ -75,6 +63,24 @@ public class ResizeComboBar : MonoBehaviour
             transform.position = (Vector3.right * _initialPosition.x) +
                 (Vector3.up * _initialPosition.y) +
                 (Vector3.up * _sizeIncreaseOnCatch * 5 * (_pointsStored.OrbsInComboBar % _pointsStored.OrbsToCatchBeforePowerUp));
+        }
+    }
+
+    private IEnumerator ResetBarSize()
+    {
+        _resetBar = false;
+        while (transform.localScale.y > _initialLocalScale.y)
+        {
+            ChangeBarSize(_decreaseSpeed);
+
+            yield return null;
+        }
+        _canResize = true;
+        transform.localScale = _initialLocalScale;
+        transform.position = _initialPosition;
+        if ((_pointsStored.OrbsInComboBar % _pointsStored.OrbsToCatchBeforePowerUp) > 0)
+        {
+            StartCoroutine(ResizeAfterReset());
         }
     }
 
@@ -94,5 +100,11 @@ public class ResizeComboBar : MonoBehaviour
     private void ResetBar()
     {
         _resetBar = true;
+    }
+
+    private void ResetBarFail()
+    {
+        StopAllCoroutines();
+        StartCoroutine(ResetBarSize());
     }
 }

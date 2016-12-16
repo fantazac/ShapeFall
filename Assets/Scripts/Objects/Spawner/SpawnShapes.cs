@@ -8,13 +8,16 @@ public class SpawnShapes : MonoBehaviour
     private GameObject _shapeToSpawn;
 
     [SerializeField]
+    private GameObject _shapeColors;
+
+    [SerializeField]
     private float _timeBetweenSpawns = 1;
 
     [SerializeField]
     private GameObject _catchBar;
 
     [SerializeField]
-    private float _shapeMinimumSpeed = 1;
+    private float _shapeMinimumSpeed = 2;
 
     [SerializeField]
     private float _shapeMaximumSpeed = 4;
@@ -24,16 +27,16 @@ public class SpawnShapes : MonoBehaviour
     private float _halfOfBar;
     private Vector3 _initialShapePosition;
     private GameObject _createdShape;
-    private Color[] _shapeColors;
+    private ShapeColors _colors;
     private System.Random _random;
 
     private void Start()
     {
         _delaySpawn = new WaitForSeconds(_timeBetweenSpawns);
         _halfOfBar = (_catchBar.transform.localScale.x * 0.5f) - (_shapeToSpawn.transform.localScale.x * 0.75f);
-        _initialShapePosition = Vector3.up * transform.position.y;
-        _shapeColors = new Color[] { Color.green, Color.red, Color.yellow, Color.blue, Color.magenta };
+        _initialShapePosition = (Vector3.right * transform.position.x) + (Vector3.up * transform.position.y);
         _random = new System.Random();
+        _colors = _shapeColors.GetComponent<ShapeColors>();
 
         StartCoroutine(SpawnShape());
     }
@@ -62,7 +65,7 @@ public class SpawnShapes : MonoBehaviour
 
     private Color GetShapeColor()
     {
-        return _shapeColors[_random.Next(0, _shapeColors.Length)];
+        return _colors.Colors[_random.Next(0, _colors.Colors.Length)];
     }
 
     private float GetShapeSpeed()

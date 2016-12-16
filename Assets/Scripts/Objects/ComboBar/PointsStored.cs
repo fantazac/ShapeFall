@@ -4,6 +4,9 @@ using System.Collections;
 public class PointsStored : MonoBehaviour
 {
     [SerializeField]
+    private GameObject _catchBar;
+
+    [SerializeField]
     private int _orbsToCatchBeforePowerUp = 10;
 
     public int OrbsToCatchBeforePowerUp { get { return _orbsToCatchBeforePowerUp; } }
@@ -12,9 +15,13 @@ public class PointsStored : MonoBehaviour
     public delegate void OnComboBarFullHandler();
     public event OnComboBarFullHandler OnComboBarFull;
 
+    public delegate void OnEmptyBarHandler();
+    public event OnEmptyBarHandler OnEmptyBar;
+
     private void Start()
     {
         GetComponentInParent<CatchOrb>().OnOrbCaught += AddOrb;
+        _catchBar.GetComponent<CatchShape>().OnInvalidShapeCaught += ResetCombo;
     }
 
     private void AddOrb()
@@ -25,5 +32,11 @@ public class PointsStored : MonoBehaviour
         {
             OnComboBarFull();
         }
+    }
+
+    private void ResetCombo()
+    {
+        OrbsInComboBar = 0;
+        OnEmptyBar();
     }
 }
